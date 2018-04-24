@@ -1,6 +1,10 @@
 FROM garland/butterfly
 
-RUN apk add --update curl && rm -rf /var/cache/apk/*
+RUN apt-get update \
+ && apt-get install -y -q --no-install-recommends \
+    curl \
+ && apt-get clean \
+ && rm -r /var/lib/apt/lists/*
 
 WORKDIR /opt
 ADD . /opt/app
@@ -15,3 +19,6 @@ EXPOSE 57575
 
 CMD ["butterfly.server.py", "--unsecure", "--host=0.0.0.0"]
 ENTRYPOINT ["docker/run.sh"]
+
+
+
