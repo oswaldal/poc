@@ -1,15 +1,6 @@
-FROM ubuntu:14.04.4
+FROM garland/butterfly
 
-RUN apt-get update \
- && apt-get install -y -q --no-install-recommends \
-    build-essential \
-    libffi-dev \
-    libssl-dev \
-    python-dev \
-    python-setuptools \
-    curl \
- && apt-get clean \
- && rm -r /var/lib/apt/lists/*
+RUN apk add --update curl && rm -rf /var/cache/apk/*
 
 WORKDIR /opt
 ADD . /opt/app
